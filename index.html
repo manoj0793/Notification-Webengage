@@ -454,7 +454,42 @@ $('.navTrigger').click(function () {
     
     });
        
+    document.getElementById("login").addEventListener("click", function(e) {
+            e.preventDefault();
+            var first = document.getElementById("firstname").value;
+            var last = document.getElementById("lastname").value;
+            var email = document.getElementById("contact_email").value;
+            var phone = document.getElementById("contact_phone").value; 
+            var gender = document.getElementById("gen").value;
+            console.log(first);
+            console.log(last);
+            console.log(email);
+            console.log(phone);
+            console.log(gender);
+            
+            webengage.user.login(email);
 
+            webengage.user.setAttribute({
+             "we_first_name" : first,
+            "we_last_name" : last,
+            "we_email" : email,
+            "we_gender" : gender,
+        });
+        webengage.track("loginClicked",{
+            "first_name" : first,
+            "last_name" : last,
+            "email": email,
+            "gender": gender,
+        })
+
+        webengage.notification.options('defaultRender', false);
+        webengage.onReady(function(){
+	    document.getElementById("login").onclick = function () {
+		webengage.notification.render();
+	};
+});
+
+    });
 
     </script>
 </body>
